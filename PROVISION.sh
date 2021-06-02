@@ -2,7 +2,7 @@
 set -e
 
 
-sudo apt install gcc g++ make build-essentials zsh ncdu mc htop python3-dev python3-setuptools python3-sh gdb valgrind rsync borgbackup rclone vim net-tools
+sudo apt install gcc g++ make build-essential cmake pkg-config autoconf automake python3-pip python3-sh clang ninja-build net-tools wireguard golang xz-utils zstd  zsh ncdu mc htop python3-dev python3-setuptools python3-sh gdb valgrind rsync borgbackup rclone vim net-tools
 
 
 #### PATHOGEN ####
