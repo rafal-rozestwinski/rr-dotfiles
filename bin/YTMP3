@@ -1,0 +1,4 @@
+#!/bin/bash -x
+#yt --download-archive downloaded.txt --no-post-overwrites https://www.youtube.com/c/Blondihacks/videos
+
+youtube-dl -f 18 -o "%(title)s-%(id)s.%(ext)s" --extract-audio --audio-format mp3 -k --restrict-filenames $@

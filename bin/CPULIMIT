@@ -1,0 +1,2 @@
+#!/bin/bash -x
+cpulimit -i -l 100 $@

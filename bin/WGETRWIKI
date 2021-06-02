@@ -1,0 +1,44 @@
+#!/bin/bash -x
+THIS_PID=$$
+
+wget --recursive --user-agent="Mozilla/5.0" --page-requisites --html-extension \
+      --convert-links --no-parent -R "*Special*" -R "*action=*" \
+      -R "*printable=*"  -R "*oldid=*" -R "*title=Talk:*" \
+      -R "*limit=*" $@
+
+#wget -r -np -l inf -e robots=off --user-agent="Mozilla/5.0"  $@ | tee /tmp/log-wgetr.$THIS_PID
+
+# -R index.html
+# --reject "index.html*"
+# -e robots=off             == --execute robots=off
+# --mirror
+# --cut-dirs=3
+# -nH -nd
+#
+#
+#Making a static version of a MediaWiki site
+#
+#I had some old sites from our ‘Biodiversity of Borneo’ course that were hosted as MediaWiki installations, but were not being added to. So as not to continue upgrading the MW version (for security needs), I wanted to freeze the sites into static HTML. After looking at various approaches (including DumpHTML.php), I found that the wget copy was the best for me. Here’s the HOWTO:
+#
+#Login to your server and run this command:
+#
+#  $ nohup wget --recursive --page-requisites --html-extension \
+#      --convert-links --no-parent -R "*Special*" -R "*action=*" \
+#      -R "*printable=*"  -R "*oldid=*" -R "*title=Talk:*" \
+#      -R "*limit=*" "http://foo.com/wiki/index.php\?title=Main_Page.htm"
+#This will take a while, but the nohup means you can logout while it runs. Expect ca. 5,000 pages or more for a medium size wiki.
+#
+#Copy the home page so it’ll be picked up by Apache:
+#
+#  $ cd foo.com/wiki
+#  $ cp index.php\?title=Main_Page.html index.html
+#For some reason I’m still not sure of, the CSS sheets were not being acted upon by the browser, despite being accessible via their URLs. So this was needed (note that the number 207 will differ for you:
+#
+#  $ cp skins/common/shared.css?207  skins/common/shared.css
+#  $ cp skins/monobook/main.css\?207 skins/monobook/main.css
+#  $ sed -i 's/shared\.css\%3F207/shared.css/g' *.html
+#  $ sed -i 's/main\.css\%3F207/main.css/g' *.html
+# Now just place the files where you want them. See these now-static sites:
+#
+# http://phylodiversity.net/bb09/
+# http://phylodiversity.net/bb10/

@@ -1,0 +1,8 @@
+#!/bin/bash -x
+set -e
+URL="$1"
+DIR_NAME=`basename "$1" | sed 's/.git//'`
+echo "$URL -> $DIR_NAME"
+
+GCR "$URL"
+ACR "$DIR_NAME"

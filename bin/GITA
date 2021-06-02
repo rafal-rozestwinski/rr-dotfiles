@@ -1,0 +1,11 @@
+#!/bin/bash -x
+set -e
+
+if [[ "x$1" == "x-f" ]] ; then
+        git add -f .
+else
+        git add .
+fi
+
+git commit -m "adding some files"
+git push

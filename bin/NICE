@@ -1,0 +1,7 @@
+#!/bin/bash
+# 100 = 1 full core
+# 50 = 50% of single core
+# max = 100 * num cores
+# -i = include children
+
+cpulimit -i -l 200 nice -n 20 $@

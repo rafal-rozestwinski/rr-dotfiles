@@ -1,0 +1,4 @@
+
+#curl -s https://api.github.com/users/fgimian/repos?per_page=200 | python -c $'import json, sys, os\nfor repo in json.load(sys.stdin): os.system("git clone " + repo["ssh_url"])'
+
+curl -s https://api.github.com/users/$1/repos?per_page=20000 | python -c $'import json, sys, os\nfor repo in json.load(sys.stdin): os.system("git clone  --recursive " + repo["clone_url"])'

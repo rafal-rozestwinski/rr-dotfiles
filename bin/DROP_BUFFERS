@@ -1,0 +1,4 @@
+#!/bin/bash -x
+free -m
+sudo bash -x -c 'echo 3 >/proc/sys/vm/drop_caches'
+free -m

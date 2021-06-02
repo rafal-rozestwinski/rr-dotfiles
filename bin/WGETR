@@ -1,0 +1,17 @@
+#!/bin/bash -x
+THIS_PID=$$
+wget -r -np -l inf -e robots=off --user-agent="Mozilla/5.0"  $@ | tee /tmp/log-wgetr.$THIS_PID
+
+# -R index.html
+# --reject "index.html*"
+# -e robots=off             == --execute robots=off
+# --mirror
+# --cut-dirs=3
+# -nH -nd
+
+# Span to any host—‘-H’
+# Limit spanning to certain domains—‘-D’
+#	wget -rH -Dexample.com http://www.example.com/
+#
+# Keep download off certain domains—‘--exclude-domains’
+#	wget -rH -Dfoo.edu --exclude-domains sunsite.foo.edu http://www.foo.edu/
