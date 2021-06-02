@@ -1,14 +1,15 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/rr/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="rr"
+ZSH_THEME="robbyrussell"
+#ZSH_THEME="rr"
 #ZSH_THEME="agnoster"
 
 # Set list of themes to pick from when loading at random
@@ -107,4 +108,4 @@ alias yt='youtube-dl -f 18 -o "%(title)s-%(id)s.%(ext)s" --restrict-filenames -i
 alias mp3yt='youtube-dl -t -f 18 --restrict-filenames --extract-audio --audio-format mp3 -k '
 alias GS='git status .'
 
-export PATH="$PATH:/usr/local/bin/"
+#export PATH="$PATH:/usr/local/bin/"
