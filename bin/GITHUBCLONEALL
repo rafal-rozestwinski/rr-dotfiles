@@ -3,7 +3,8 @@ from retrying import retry
 import requests
 import sys
 import json
-import sh
+#import sh
+import time
 import os
 #curl -s https://api.github.com/users/fgimian/repos?per_page=200 | python -c $'import json, sys, os\nfor repo in json.load(sys.stdin): os.system("git clone " + repo["ssh_url"])'
 #curl -s https://api.github.com/users/$1/repos?per_page=20000 | python -c $'import json, sys, os\nfor repo in json.load(sys.stdin): os.system("git clone  --recursive " + repo["clone_url"])'
@@ -45,11 +46,12 @@ def zulu():
 
 # =============== XPRINT ==================
 
+
 LOGGING_FILE = None
 def xprint(*args, **kwargs):
-	print(" ".join(map(str,args)), **kwargs, file=sys.stderr)
+	print(" ".join(map(str,args)), **kwargs, file=sys.stderr, flush=True)
 	if LOGGING_FILE != None:
-		print(" ".join(map(str,args)), **kwargs, file=LOGGING_FILE)
+		print(" ".join(map(str,args)), **kwargs, file=LOGGING_FILE,  flush=True)
 
 # =========================================
 
@@ -72,7 +74,11 @@ def get_wiki(json_repo, method='ssh', recursive=True):
 		else:
 			wiki_url = json_repo["clone_url"].replace(".git", ".wiki.git")
 		xprint("  -> Downloading WIKI:", wiki_url)
-		sh.git("clone", wiki_url)
+		#sh.git("clone", wiki_url,
+		#  _tee=True,
+                #  _out=lambda x: xprint(x),
+                #  _err=lambda x: xprint(x))
+		os.system("git clone {}".format(wiki_url))
 	else:
 		xprint("  -> Wiki is NOT enabled for this repo")
 
@@ -85,11 +91,18 @@ def get_repo(json_repo, method='ssh', recursive=True):
 		repo_url = json_repo["clone_url"]
 	if recursive:
 		xprint("  -> Downloading recursive", repo_url)
-		sh.git("clone", "--recursive", repo_url)
+		#sh.git("clone", "--recursive", repo_url,
+		#  _tee=True,
+                #  _out=lambda x: xprint(x),
+                #  _err=lambda x: xprint(x))
+		os.system("git clone --recursive {}".format(repo_url))
 	else:
 		xprint("  -> Downloading", repo_url)
-		sh.git("clone", repo_url)
-
+		#sh.git("clone", repo_url,
+		#  _tee=True,
+                #  _out=lambda x: xprint(x),
+                #  _err=lambda x: xprint(x))
+		os.system("git clone {}".format(repo_url))
 @retry(stop_max_attempt_number=7, wait_fixed=10000)
 def download_repos_json(org_name, per_page, page):
 	response = requests.get("https://api.github.com/users/{}/repos?per_page={}&page={}".format(org_name, per_page, page))
@@ -105,6 +118,7 @@ for page in range(1, 10000):
 		break
 	#print(jbody)
 	for repo in jbody:
+		time.sleep(0.2)
 		xprint(" Processing", repo["full_name"])
 		try:
 			get_repo(repo)
