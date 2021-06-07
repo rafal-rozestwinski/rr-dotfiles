@@ -1,0 +1,2 @@
+egrep -o 'https?://[^ ]+' $1 | sed 's/.$//'
+#egrep -o 'https?://[^ ]+' README.md | sed 's/.$//'

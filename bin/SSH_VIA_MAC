@@ -1,0 +1,9 @@
+#!/bin/bash -x
+
+MAC=B8:27:EB:B1:4E:3C
+# RPI1B -camera 18:a6:f7:0d:17:0a
+
+IP=`sudo nmap -sS -p 22 192.168.1.0/24 | grep $MAC -B5 | grep "Nmap scan report for" | cut -d' ' -f5`
+echo "IP = '$IP'"
+ssh -i ~/.ssh/CAMLINUX_id_rsa root@$IP
+

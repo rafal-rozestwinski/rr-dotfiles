@@ -1,0 +1,3 @@
+#!/bin/bash -x
+WHERE=$1
+find $WHERE -executable -type f -exec sh -c "file -i '{}' | grep -q 'x-executable; charset=binary'" \; -print

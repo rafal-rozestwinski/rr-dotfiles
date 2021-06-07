@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ "$#" == "0" ] ; then
+	echo 'USAGE: GREP_AND_SED_ON_MATCH WHAT_TO_GREP_FOR COMMAND ARGS ARGS ARGS'
+	echo '         use $fn in place of filename. Escape with \$fn '
+	echo "EXAMPLES:"
+	echo "       GREP_AND_SED_ON_MATCH bash 'head -n1 \$fn | cut -d\"!\" -f1 ' "
+	echo "       GREP_AND_SED_ON_MATCH bash 'head -n1 $fn | cut -d\"!\" -f2 | cut -d" " -f1 | cut -d\"/\" -f3 ' "
+	echo '       GREP_AND_SED_ON_MATCH bash head -n2 \$fn'
+	exit 1
+fi
+
+set -x
+set -e
+
+GREP_FOR_WHAT=$1
+SED_CMD=${@:2}
+
+find . -type f -exec bash -c "grep $GREP_FOR_WHAT {} /dev/null | cut -d':' -f1 2>/dev/null | while read -r fn ;  do echo Processing \$fn ; $SED_CMD ;  done  " \;
