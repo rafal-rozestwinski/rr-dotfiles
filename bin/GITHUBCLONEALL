@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+from retrying import retry
+import requests
+import sys
+import json
+import sh
+import os
+#curl -s https://api.github.com/users/fgimian/repos?per_page=200 | python -c $'import json, sys, os\nfor repo in json.load(sys.stdin): os.system("git clone " + repo["ssh_url"])'
+#curl -s https://api.github.com/users/$1/repos?per_page=20000 | python -c $'import json, sys, os\nfor repo in json.load(sys.stdin): os.system("git clone  --recursive " + repo["clone_url"])'
+
+__doc__ = """GITHUBCLONEALL
+
+Usage:
+  GITHUBCLONEALL <org_name> [--mkdir=<arg>] [--wiki=<arg>] [--method=<arg>] [--per_page=<arg>]
+  GITHUBCLONEALL (-h | --help)
+  GITHUBCLONEALL --version
+
+Options:
+  -h --help     Show this screen.
+  --version     Show version.
+  --method=<arg>  Download method [default: ssh].
+  --mkdir=<arg>  Create timestamped directory for the whole download, [default: True].
+  --per_page=<per_page>  Pagination param, [default: 10].
+  --wiki=<arg>  Download wikis, [default: True].
+
+"""
+
+from docopt import docopt
+
+arguments = docopt(__doc__, version='2.0')
+print(arguments)
+
+per_page = int(arguments["--per_page"])
+method = arguments["--method"]
+org_name = arguments["<org_name>"]
+get_wikis = False if arguments["--wiki"] == "False" else True
+make_dir = True if arguments["--mkdir"] == "True" else False
+
+# ============ ZULU ===============================
+import datetime
+def zulu():
+	d = datetime.datetime.utcnow()
+	return d.strftime('%Y-%m-%dT%H-%M-%S.%fZ')
+# =============== END OF ZULU =====================
+
+# =============== XPRINT ==================
+
+LOGGING_FILE = None
+def xprint(*args, **kwargs):
+	print(" ".join(map(str,args)), **kwargs, file=sys.stderr)
+	if LOGGING_FILE != None:
+		print(" ".join(map(str,args)), **kwargs, file=LOGGING_FILE)
+
+# =========================================
+
+dir_for_repos = "cloneall_" + org_name + "_" + zulu()
+if make_dir:
+	xprint("Making directory", dir_for_repos)
+	os.mkdir(dir_for_repos)
+	xprint("Changing working directory...")
+	os.chdir(dir_for_repos)
+	LOGGING_FILE = open("cloneall.log", "a+")
+	xprint("Logging started.")
+
+@retry(stop_max_attempt_number=2, wait_fixed=5000)
+def get_wiki(json_repo, method='ssh', recursive=True):
+	xprint("Getting wiki...")
+	wiki_url = ""
+	if json_repo["has_wiki"]:
+		if method == 'ssh':
+			wiki_url = json_repo["ssh_url"].replace(".git", ".wiki.git")
+		else:
+			wiki_url = json_repo["clone_url"].replace(".git", ".wiki.git")
+		xprint("  -> Downloading WIKI:", wiki_url)
+		sh.git("clone", wiki_url)
+	else:
+		xprint("  -> Wiki is NOT enabled for this repo")
+
+@retry(stop_max_attempt_number=7, wait_fixed=10000)
+def get_repo(json_repo, method='ssh', recursive=True):
+	url = ""
+	if method == 'ssh':
+		repo_url = json_repo["ssh_url"]
+	else:
+		repo_url = json_repo["clone_url"]
+	if recursive:
+		xprint("  -> Downloading recursive", repo_url)
+		sh.git("clone", "--recursive", repo_url)
+	else:
+		xprint("  -> Downloading", repo_url)
+		sh.git("clone", repo_url)
+
+@retry(stop_max_attempt_number=7, wait_fixed=10000)
+def download_repos_json(org_name, per_page, page):
+	response = requests.get("https://api.github.com/users/{}/repos?per_page={}&page={}".format(org_name, per_page, page))
+	jbody = response.json()
+	return jbody
+
+
+for page in range(1, 10000):
+	xprint("Getting next page", page)
+	jbody = download_repos_json(org_name, per_page, page)
+	if len(jbody) == 0:
+		xprint("Next repos page is empty, download seems to be complete.")
+		break
+	#print(jbody)
+	for repo in jbody:
+		xprint(" Processing", repo["full_name"])
+		try:
+			get_repo(repo)
+		except Exception as ex:
+			xprint("Getting repo has failed", ex);
+		if get_wikis:
+			try:
+				get_wiki(repo)
+			except Exception as ex:
+				xprint("getting wiki has failed", ex)
+
