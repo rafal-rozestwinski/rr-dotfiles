@@ -18,17 +18,18 @@ if echo "$1" | grep ' ' ; then
 	exit 2
 fi
 
-TAR_CMD="tar -cJf"
+#TAR_CMD="tar -cJf"
+TAR_CMD="tar -c --use-compress-program=zstd -f"
 #TAR_CMD="zstd-tar-bin --zstd -cf"
-TAR_EXT=".tar.xz"
-#TAR_EXT=".tar.zst"
+#TAR_EXT=".tar.xz"
+TAR_EXT=".tar.zst"
 
 #HASH_CMD="md5sum"
-#HASH_CMD="xxh32sum"
-HASH_CMD="shasum"
-#HASH_EXT="xxh32"
+HASH_CMD="xxh32sum"
+#HASH_CMD="shasum"
+HASH_EXT="xxh32"
 #HASH_EXT="md5"
-HASH_EXT="sha1"
+#HASH_EXT="sha1"
 
 TSNOW=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
 FNAME="${1}-git-${TSNOW}_${HASH_EXT}-"
