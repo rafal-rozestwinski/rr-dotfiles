@@ -1,0 +1,4 @@
+#!/bin/bash -x
+#for i in */.git; do echo git -C $i pull; done
+for i in */.git; do ( echo $i; cd $i/..; git pull; ); done
+# https://myrepos.branchable.com
