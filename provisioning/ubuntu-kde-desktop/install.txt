@@ -118,6 +118,7 @@
 	arduino arduino-mk openocd avrdude binutils-arm-none-eabi 
 	avr-libc avra avrdude-doc binutils-avr gcc-avr gdb-avr 
 	stlink-tools
+	srecord
 
 # games:
 	uqm uqm-content uqm-music uqm-voice wesnoth
