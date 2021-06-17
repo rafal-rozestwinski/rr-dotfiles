@@ -7,6 +7,7 @@
 # basic net:
 	net-tools xz zstd cpulimit vim ncdu mc rsync zsh borgbackup rclone rdiff-backup fuse tmux screen
 	vlock socat tcpdump nethogs netcat pigz kpartx bridge-utils bsdutils links
+	jq
 	zsh
 	busybox-static
 	strace
@@ -27,6 +28,7 @@
 	python3-numpy
 	python3-scipy
 	python3-requests
+	yapf3
 
 # big apps:
 	gimp freecad openscad audacity vlc mplayer kdenlive  digikam blender inkscape libreoffice cura marble-qt stellarium firefox chromium-browser
