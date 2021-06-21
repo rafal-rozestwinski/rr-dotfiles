@@ -35,7 +35,7 @@
 	kicad kicad-libraries kicad-footprints kicad-symbols kicad-templates
 	gnuradio-dev gnuradio gnuradio-doc rtl-sdr octave octave-doc
 	codeblocks
-
+	cmake-qt-gui
 # utils:
 	gparted wkhtmltopdf 
 	ttf-mscorefonts-installer
@@ -75,6 +75,7 @@
 # dev:
 	astyle
 	libgmp-dev libfftw3-dev libmpfr-dev gnuplot
+	cmake-qt-gui cmake-curses-gui
 	patch
 	nodejs
 	clang-12
@@ -107,6 +108,7 @@
 	#golang-src
 
 # cross:
+	g++-11-aarch64-linux-gnu
 	g++-aarch64-linux-gnu
 	gcc-arm-none-eabi
 	gcc-riscv64-linux-gnu
