@@ -1,0 +1,30 @@
+#!/bin/bash
+
+echo "READ THIS FILE" ; exit 1
+
+sudo mkdir -p /mnt/secretfile
+sudo cryptsetup open secret.img secretfile
+sudo mount /dev/mapper/secretfile /mnt/secretfile
+
+# CREATE:
+#dd if=/dev/zero of=secret.img bs=1M count=10
+#sudo cryptsetup luksFormat secret.img
+#sudo cryptsetup open secret.img secretfile
+#sudo mkfs.ext4 /dev/mapper/secretfile
+#sudo mkdir -p /mnt/secretfile
+#sudo mount /dev/mapper/secretfile /mnt/secretfile
+
+# CLOSE/UMOUNT:
+#sudo umount /mnt/secretfile/
+#sudo cryptsetup close secretfile
+
+######## RAW ##########
+sudo mkdir -p /mnt/secretfile
+#dd if=/dev/zero of=secret.img bs=1M count=10
+sudo cryptsetup --hash=sha512 --cipher=twofish-xts-plain64 --offset=0 open --type=plain secret.img secretfile
+#sudo mkfs.ext4 /dev/mapper/secretfile
+sudo mount /dev/mapper/secretfile  /mnt/secretfile/
+
+# CLOSE/UMOUNT:
+#sudo umount /mnt/secretfile/
+#sudo cryptsetup close secretfile
