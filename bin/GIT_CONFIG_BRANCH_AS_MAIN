@@ -1,0 +1,2 @@
+#!/bin/bash -x
+git config --global init.defaultBranch main

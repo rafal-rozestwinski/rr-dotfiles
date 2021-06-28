@@ -8,7 +8,7 @@
 	net-tools xz zstd cpulimit vim ncdu mc rsync zsh borgbackup rclone rdiff-backup fuse tmux screen
 	vlock socat tcpdump nethogs netcat pigz kpartx bridge-utils bsdutils links
 	jq
-	zsh
+	zsh fish
 	busybox-static
 	strace
 	telnet
@@ -121,6 +121,9 @@
 	avr-libc avra avrdude-doc binutils-avr gcc-avr gdb-avr 
 	stlink-tools
 	srecord
+	dfu-util
+
+
 
 # games:
 	uqm uqm-content uqm-music uqm-voice wesnoth
