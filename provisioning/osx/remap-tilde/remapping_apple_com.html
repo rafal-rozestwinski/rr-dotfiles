@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2450: Remapping Keys in macOS 10.12 Sierra</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017618">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017618-CH1">
+    <meta id="date" name="date" content="2017-08-21">
+    <meta id="description" name="description" content="TN2450: New document which describes how to remap keys in macOS 10.12 Sierra.">
+    <meta id="book-title" name="book-title" content="Remapping Keys in macOS 10.12 Sierra">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Kernel & Driver Layer/IOKit}, {Topic/Data Management/Event Handling}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2450">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Remapping Keys in macOS 10.12 Sierra" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017618" title="Technical Note TN2450"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="appleglobal,appleusdeveloper,dappdeveloperlib"
+    </script>
+
+    <script type="text/javascript" src="https://www.apple.com/metrics/scripts/s_code_h.js"></script>
+    <script type="text/javascript">
+    s.pageName=AC.Tracking.pageName();
+    s.channel="www.us.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Remapping Keys in macOS 10.12 Sierra</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017618-CH1-DontLinkElementID_2" title="Technical Note TN2450"></a><div class="dtsDocNumber">Technical Note TN2450</div><h1 id="pageTitle">Remapping Keys in macOS 10.12 Sierra</h1><p>In macOS Sierra 10.12, we introduced a new way to keyboard key remapping. This document will discuss the various ways to do so.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017618-CH1-TNTAG7" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017618-CH1-TNTAG8" data-renderer-version="1">Scripting Key Remapping</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017618-CH1-TNTAG4" data-renderer-version="1">Programmatic Key Remapping</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017618-CH1-KEY_TABLE_USAGES" data-renderer-version="1">Key Table Usages</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017618-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40017618-CH1-TNTAG7" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Under macOS Sierra 10.12, the mechanism for key remapping was changed. This Technical Note is for developers  of key remapping software so that they can update their software to support macOS Sierra 10.12. We present 2 solutions for implementing key remapping functionality for macOS 10.12 in this Technical Note. The command line <code>hidutil</code> tool is useful for executable scripts. macOS applications can use the IOHIDEventSystemClient API to achieve this functionality. The scope of the key remapping function applies to all users and will remain in effect so long as there is an active keyboard service. Key remappings are lost when the system is restarted or if the keyboard service is removed (for example when the last keyboard is disconnected.) No special privileges are required to use key remapping.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017618-CH1-TNTAG8" title="Scripting Key Remapping"></a><h2 class="jump">Scripting Key Remapping</h2><p>Keys can be remapped via the command-line tool <code>hidutil</code>. For example, use the <code>hidutil</code> command-line tool to remap the 'A' key to the 'B' key as shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>. The map array consists of two key/value pairs that contain the source (<code>HIDKeyboardModifierMappingSrc</code>) and destination (<code>HIDKeyboardModifierMappingDstKey</code>) of the key remapping. The keys take a hexadecimal  value that consists of 0x700000000 or’d with the desired keyboard usage value (see <span class="content_text"><!--a  -->Table 1<!--/a--></span> for usage values).</p><a name="//apple_ref/doc/uid/DTS40017618-CH1-SOURCECODE1" title="Listing 1 Remapping keys in a script"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp; Remapping keys in a script</p><div class="codesample clear"><table><tr><td scope="row"><pre>$ hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000004,"HIDKeyboardModifierMappingDst":0x700000005},{"HIDKeyboardModifierMappingSrc":0x700000005,"HIDKeyboardModifierMappingDst":0x700000004}]}'<span></span></pre></td></tr><tr><td scope="row"><pre>)<span></span></pre></td></tr></table></div><p>A script can check the key remapping state by using the <code>hidutil</code> command-line tool as shown in <span class="content_text"><!--a  -->Listing 2<!--/a--></span>. A <code>null</code> result indicates that there are no key remappings active.</p><a name="//apple_ref/doc/uid/DTS40017618-CH1-SOURCECODE2" title="Listing 2Checking Key Remapping state"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Checking Key Remapping state</p><div class="codesample clear"><table><tr><td scope="row"><pre>$ hidutil property --get "UserKeyMapping"<span></span></pre></td></tr><tr><td scope="row"><pre>(null)<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017618-CH1-TNTAG4" title="Programmatic Key Remapping"></a><h2 class="jump">Programmatic Key Remapping</h2><p>The IOKit HID APIs can be used for key remapping. The user will provide a dictionary of key remapping that the HID event system will apply to the keyboard.</p><p>Listing 3 : Key Remapping using IOKit HID APIs.</p><a name="//apple_ref/doc/uid/DTS40017618-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>// compiled with Xcode 8.2.1<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>#import &lt;Foundation/Foundation.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>#import &lt;IOKit/hidsystem/IOHIDEventSystemClient.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>#import &lt;IOKit/hidsystem/IOHIDServiceClient.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>#import &lt;IOKit/hid/IOHIDUsageTables.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>int main(int argc, char *argv[])<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    IOHIDEventSystemClientRef system;<span></span></pre></td></tr><tr><td scope="row"><pre>    CFArrayRef services;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    uint64_t aKey = 0x700000004;<span></span></pre></td></tr><tr><td scope="row"><pre>    uint64_t bKey = 0x700000005;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    NSArray *map = @[<span></span></pre></td></tr><tr><td scope="row"><pre>                     @{@kIOHIDKeyboardModifierMappingSrcKey:@(aKey),<span></span></pre></td></tr><tr><td scope="row"><pre>                        @kIOHIDKeyboardModifierMappingDstKey:@(bKey)},<span></span></pre></td></tr><tr><td scope="row"><pre>                     @{@kIOHIDKeyboardModifierMappingSrcKey:@(bKey),<span></span></pre></td></tr><tr><td scope="row"><pre>                        @kIOHIDKeyboardModifierMappingDstKey:@(aKey)},<span></span></pre></td></tr><tr><td scope="row"><pre>                     ];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    system = IOHIDEventSystemClientCreateSimpleClient(kCFAllocatorDefault);<span></span></pre></td></tr><tr><td scope="row"><pre>    services = IOHIDEventSystemClientCopyServices(system);<span></span></pre></td></tr><tr><td scope="row"><pre>    for(CFIndex i = 0; i &lt; CFArrayGetCount(services); i++) {<span></span></pre></td></tr><tr><td scope="row"><pre>        IOHIDServiceClientRef service = (IOHIDServiceClientRef)CFArrayGetValueAtIndex(services, i);<span></span></pre></td></tr><tr><td scope="row"><pre>        if(IOHIDServiceClientConformsTo(service, kHIDPage_GenericDesktop, kHIDUsage_GD_Keyboard)) {<span></span></pre></td></tr><tr><td scope="row"><pre>            IOHIDServiceClientSetProperty(service, CFSTR(kIOHIDUserKeyUsageMapKey), (CFArrayRef)map);<span></span></pre></td></tr><tr><td scope="row"><pre>        }<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    CFRelease(services);<span></span></pre></td></tr><tr><td scope="row"><pre>    CFRelease(system);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    return 0;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017618-CH1-KEY_TABLE_USAGES" title="Key Table Usages"></a><h2 class="jump">Key Table Usages</h2><p><span class="content_text"><!--a  -->Table 1<!--/a--></span> presents a list of keyboard usages and their usage IDs for use in key remapping. This list is from the <span class="content_text"><a href="http://www.usb.org/developers/hidpage/Hut1_12v2.pdf" class="urlLink" rel="external">USB HID Usage Tables Specification, Section 10 Keyboard /Keypad Page</a></span>.</p><a name="//apple_ref/doc/uid/DTS40017618-CH1-TABLE1" title="Table 1List of keyboard usages and their usage IDs."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;List of keyboard usages and their usage IDs.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Usage
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Usage ID (hex)
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Usage
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Usage ID (hex)
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Usage
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Usage ID (hex)
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Usage
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Usage ID (hex)
+</p></th></tr><tr><td  scope="row"><p>
+Keyboard a and A
+</p></td><td ><p>
+0x04
+</p></td><td ><p>
+Keyboard 5 and %
+</p></td><td ><p>
+0x22
+</p></td><td ><p>
+Keyboard F7
+</p></td><td ><p>
+0x40
+</p></td><td ><p>
+Keypad 6 and Right Arrow
+</p></td><td ><p>
+0x5E
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard b and B
+</p></td><td ><p>
+0x05
+</p></td><td ><p>
+Keyboard 6 and ^
+</p></td><td ><p>
+0x23
+</p></td><td ><p>
+Keyboard F8
+</p></td><td ><p>
+0x41
+</p></td><td ><p>
+Keypad 7 and Home
+</p></td><td ><p>
+0x5F
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard c and C
+</p></td><td ><p>
+0x06
+</p></td><td ><p>
+Keyboard 7 and &amp;
+</p></td><td ><p>
+0x24
+</p></td><td ><p>
+Keyboard F9
+</p></td><td ><p>
+0x42
+</p></td><td ><p>
+Keypad 8 and Up Arrow
+</p></td><td ><p>
+0x60
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard d and D
+</p></td><td ><p>
+0x07
+</p></td><td ><p>
+Keyboard 8 and *
+</p></td><td ><p>
+0x25
+</p></td><td ><p>
+Keyboard F10
+</p></td><td ><p>
+0x43
+</p></td><td ><p>
+Keypad 9 and Page Up
+</p></td><td ><p>
+0x61
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard e and E
+</p></td><td ><p>
+0x08
+</p></td><td ><p>
+Keyboard 9 and (
+</p></td><td ><p>
+0x26
+</p></td><td ><p>
+Keyboard F11
+</p></td><td ><p>
+0x44
+</p></td><td ><p>
+Keypad 0 and Insert
+</p></td><td ><p>
+0x62
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard f and F
+</p></td><td ><p>
+0x09
+</p></td><td ><p>
+Keyboard 0 and )
+</p></td><td ><p>
+0x27
+</p></td><td ><p>
+Keyboard F12
+</p></td><td ><p>
+0x45
+</p></td><td ><p>
+Keypad . and Delete
+</p></td><td ><p>
+0x63
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard g and G
+</p></td><td ><p>
+0x0A
+</p></td><td ><p>
+Keyboard Return (Enter)
+</p></td><td ><p>
+0x28
+</p></td><td ><p>
+Keyboard Print Screen
+</p></td><td ><p>
+0x46
+</p></td><td ><p>
+Keyboard Non-US \ and |
+</p></td><td ><p>
+0x64
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard h and H
+</p></td><td ><p>
+0x0B
+</p></td><td ><p>
+Keyboard Escape
+</p></td><td ><p>
+0x29
+</p></td><td ><p>
+Keyboard Scroll Lock
+</p></td><td ><p>
+0x47
+</p></td><td ><p>
+Keyboard Application
+</p></td><td ><p>
+0x65
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard i and I
+</p></td><td ><p>
+0x0C
+</p></td><td ><p>
+Keyboard Delete (Backspace)
+</p></td><td ><p>
+0x2A
+</p></td><td ><p>
+Keyboard Pause
+</p></td><td ><p>
+0x48
+</p></td><td ><p>
+Keyboard Power
+</p></td><td ><p>
+0x66
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard j and J
+</p></td><td ><p>
+0x0D
+</p></td><td ><p>
+Keyboard Tab
+</p></td><td ><p>
+0x2B
+</p></td><td ><p>
+Keyboard Insert
+</p></td><td ><p>
+0x49
+</p></td><td ><p>
+Keypad =
+</p></td><td ><p>
+0x67
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard k and K
+</p></td><td ><p>
+0x0E
+</p></td><td ><p>
+Keyboard Spacebar
+</p></td><td ><p>
+0x2C
+</p></td><td ><p>
+Keyboard Home
+</p></td><td ><p>
+0x4A
+</p></td><td ><p>
+Keyboard F13
+</p></td><td ><p>
+0x68
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard l and L
+</p></td><td ><p>
+0x0F
+</p></td><td ><p>
+Keyboard - and _
+</p></td><td ><p>
+0x2D
+</p></td><td ><p>
+Keyboard Page Up
+</p></td><td ><p>
+0x4B
+</p></td><td ><p>
+Keyboard F14
+</p></td><td ><p>
+0x69
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard m and M
+</p></td><td ><p>
+0x10
+</p></td><td ><p>
+Keyboard = and +
+</p></td><td ><p>
+0x2E
+</p></td><td ><p>
+Keyboard Delete Forward
+</p></td><td ><p>
+0x4C
+</p></td><td ><p>
+Keyboard F15
+</p></td><td ><p>
+0x6A
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard n and N
+</p></td><td ><p>
+0x11
+</p></td><td ><p>
+Keyboard [ and {
+</p></td><td ><p>
+0x2F
+</p></td><td ><p>
+Keyboard End
+</p></td><td ><p>
+0x4D
+</p></td><td ><p>
+Keyboard F16
+</p></td><td ><p>
+0x6B
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard o and O
+</p></td><td ><p>
+0x12
+</p></td><td ><p>
+Keyboard ] and }
+</p></td><td ><p>
+0x30
+</p></td><td ><p>
+Keyboard Page Down
+</p></td><td ><p>
+0x4E
+</p></td><td ><p>
+Keyboard F17
+</p></td><td ><p>
+0x6C
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard p and P
+</p></td><td ><p>
+0x13
+</p></td><td ><p>
+Keyboard \ and |
+</p></td><td ><p>
+0x31
+</p></td><td ><p>
+Keyboard Right Arrow
+</p></td><td ><p>
+0x4F
+</p></td><td ><p>
+Keyboard F18
+</p></td><td ><p>
+0x6D
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard q and Q
+</p></td><td ><p>
+0x14
+</p></td><td ><p>
+Keyboard Non-US # and ~
+</p></td><td ><p>
+0x32
+</p></td><td ><p>
+Keyboard Left Arrow
+</p></td><td ><p>
+0x50
+</p></td><td ><p>
+Keyboard F19
+</p></td><td ><p>
+0x6E
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard r and R
+</p></td><td ><p>
+0x15
+</p></td><td ><p>
+Keyboard ; and :
+</p></td><td ><p>
+0x33
+</p></td><td ><p>
+Keyboard Down Arrow
+</p></td><td ><p>
+0x51
+</p></td><td ><p>
+Keyboard F20
+</p></td><td ><p>
+0x6F
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard s and S
+</p></td><td ><p>
+0x16
+</p></td><td ><p>
+Keyboard ' and "
+</p></td><td ><p>
+0x34
+</p></td><td ><p>
+Keyboard Up Arrow
+</p></td><td ><p>
+0x52
+</p></td><td ><p>
+Keyboard F21
+</p></td><td ><p>
+0x70
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard t and T
+</p></td><td ><p>
+0x17
+</p></td><td ><p>
+Keyboard Grave Accent and Tilde
+</p></td><td ><p>
+0x35
+</p></td><td ><p>
+Keypad Num Lock and Clear
+</p></td><td ><p>
+0x53
+</p></td><td ><p>
+Keyboard F22
+</p></td><td ><p>
+0x71
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard u and U
+</p></td><td ><p>
+0x18
+</p></td><td ><p>
+Keyboard , and "&lt;"
+</p></td><td ><p>
+0x36
+</p></td><td ><p>
+Keypad /
+</p></td><td ><p>
+0x54
+</p></td><td ><p>
+Keyboard F23
+</p></td><td ><p>
+0x72
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard v and V
+</p></td><td ><p>
+0x19
+</p></td><td ><p>
+Keyboard . and "&gt;"
+</p></td><td ><p>
+0x37
+</p></td><td ><p>
+Keypad *
+</p></td><td ><p>
+0x55
+</p></td><td ><p>
+Keyboard F24
+</p></td><td ><p>
+0x73
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard w and W
+</p></td><td ><p>
+0x1A
+</p></td><td ><p>
+Keyboard / and ?
+</p></td><td ><p>
+0x38
+</p></td><td ><p>
+Keypad -
+</p></td><td ><p>
+0x56
+</p></td><td ><p>
+Keyboard Left Control
+</p></td><td ><p>
+0xE0
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard x and X
+</p></td><td ><p>
+0x1B
+</p></td><td ><p>
+Keyboard Caps Lock
+</p></td><td ><p>
+0x39
+</p></td><td ><p>
+Keypad +
+</p></td><td ><p>
+0x57
+</p></td><td ><p>
+Keyboard Left Shift
+</p></td><td ><p>
+0xE1
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard y and Y
+</p></td><td ><p>
+0x1C
+</p></td><td ><p>
+Keyboard F1
+</p></td><td ><p>
+0x3A
+</p></td><td ><p>
+Keypad Enter
+</p></td><td ><p>
+0x58
+</p></td><td ><p>
+Keyboard Left Alt
+</p></td><td ><p>
+0xE2
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard z and Z
+</p></td><td ><p>
+0x1D
+</p></td><td ><p>
+Keyboard F2
+</p></td><td ><p>
+0x3B
+</p></td><td ><p>
+Keypad 1 and End
+</p></td><td ><p>
+0x59
+</p></td><td ><p>
+Keyboard Left GUI
+</p></td><td ><p>
+0xE3
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard 1 and !
+</p></td><td ><p>
+0x1E
+</p></td><td ><p>
+Keyboard F3
+</p></td><td ><p>
+0x3C
+</p></td><td ><p>
+Keypad 2 and Down Arrow
+</p></td><td ><p>
+0x5A
+</p></td><td ><p>
+Keyboard Right Control
+</p></td><td ><p>
+0xE4
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard 2 and @
+</p></td><td ><p>
+0x1F
+</p></td><td ><p>
+Keyboard F4
+</p></td><td ><p>
+0x3D
+</p></td><td ><p>
+Keypad 3 and Page Down
+</p></td><td ><p>
+0x5B
+</p></td><td ><p>
+Keyboard Right Shift
+</p></td><td ><p>
+0xE5
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard 3 and #
+</p></td><td ><p>
+0x20
+</p></td><td ><p>
+Keyboard F5
+</p></td><td ><p>
+0x3E
+</p></td><td ><p>
+Keypad 4 and Left Arrow
+</p></td><td ><p>
+0x5C
+</p></td><td ><p>
+Keyboard Right Alt
+</p></td><td ><p>
+0xE6
+</p></td></tr><tr><td  scope="row"><p>
+Keyboard 4 and $
+</p></td><td ><p>
+0x21
+</p></td><td ><p>
+Keyboard F6
+</p></td><td ><p>
+0x3F
+</p></td><td ><p>
+Keypad 5
+</p></td><td ><p>
+0x5D
+</p></td><td ><p>
+Keyboard Right GUI
+</p></td><td ><p>
+0xE7
+</p></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017618-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017618-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-08-21</td><td><p>fixed typo - missing lower case "z" in Table 1</p></td></tr><tr><td scope="row">2017-03-21</td><td><p>New document that 
+					new document which describes how to remap keys in macOS 10.12 Sierra.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-08-21</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>
