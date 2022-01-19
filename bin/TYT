@@ -1,0 +1,21 @@
+#!/bin/bash
+
+TITLE=$(youtube-dl -f mp4 -o '%(id)s.%(ext)s' --print-json --no-warnings "$1" | jq -r .title | tr -cd '[:alnum:]._-' | head -c100)
+RANDOMHEX=$(openssl rand -hex 6)
+OUTTITLE="$TITLE-$RANDOMHEX.mp4"
+echo "SAFE TITLE: $OUTTITLE"
+youtube-dl -o "$OUTTITLE" "$1"
+
+
+
+#def slugify(value):
+#    """
+#    Normalizes string, converts to lowercase, removes non-alpha characters,
+#    and converts spaces to hyphens.
+#    """
+#    import unicodedata
+#    value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
+#    value = unicode(re.sub('[^\w\s-]', '', value).strip().lower())
+#    value = unicode(re.sub('[-\s]+', '-', value))
+#    # ...
+#    return value
