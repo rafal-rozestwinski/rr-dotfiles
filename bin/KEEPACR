@@ -1,0 +1,42 @@
+#!/bin/bash -x
+set -e
+
+# ARCHIVE COMPRESS
+
+if [[ x"$1" == x"" ]] ; then
+	echo "Error: missing parameter: directory to compress."
+	exit 1
+fi
+
+if echo "$1" | grep '\/' ; then
+	echo "Error: directory contains /"
+	exit 2
+fi
+
+if echo "$1" | grep ' ' ; then
+	echo "Error: directory contains spaces"
+	exit 2
+fi
+
+#TAR_CMD="tar -cJf"
+TAR_CMD="tar -c --use-compress-program=zstd -f"
+#TAR_CMD="zstd-tar-bin --zstd -cf"
+#TAR_EXT=".tar.xz"
+TAR_EXT=".tar.zst"
+
+#HASH_CMD="md5sum"
+HASH_CMD="xxh32sum"
+#HASH_CMD="shasum"
+HASH_EXT="xxh32"
+#HASH_EXT="md5"
+#HASH_EXT="sha1"
+
+TSNOW=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
+FNAME="${1}-git-${TSNOW}_${HASH_EXT}-"
+$TAR_CMD "$FNAME" "$1"
+HASHSUM=$($HASH_CMD "$FNAME" | cut -d' ' -f1)
+mv "$FNAME" "${FNAME}${HASHSUM}${TAR_EXT}"
+
+#rm -rf "$1"
+
+echo "OK."
