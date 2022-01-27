@@ -8,6 +8,10 @@ sudo mount /dev/mapper/secretfile /mnt/secretfile
 
 # CREATE:
 #dd if=/dev/zero of=secret.img bs=1M count=10
+#
+# WARNING: USE LUKS2 format now:
+#cryptsetup -y -v --type luks2 luksFormat /d_____ev/sdc
+#
 #sudo cryptsetup luksFormat secret.img
 #sudo cryptsetup open secret.img secretfile
 #sudo mkfs.ext4 /dev/mapper/secretfile
