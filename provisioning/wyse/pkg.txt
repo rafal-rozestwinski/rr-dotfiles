@@ -1,0 +1,5 @@
+apt install gcc g++ clang gdb valgrind make cmake nodejs golang openssl curl libcurl4-openssl-dev libuv1-dev python3-pip python3-setuptools python3-serial screen tmux vim ncdu lsof htop avahi-daemon tcc nasm yasm ffmpeg mplayer sshfs rsync wireguard testdisk zstd sudo \ 
+patch git fakeroot libffi-dev faketime libfaketime automake dialog doxygen ninja-build pkg-config libboost-all-dev libxml2-dev libjpeg-dev libsdl2-dev libunwind-dev libsqlite3-dev sqlite3 libspdlog-dev xxd
+
+
+# alsa-tools alsa-utils
