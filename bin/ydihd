@@ -1,0 +1,5 @@
+set -x
+export YDL_BIN="$HOME/bin/ydl/yt-dlp_linux"
+#export YDL_BIN="$HOME/bin/ydl/yt-dlp_macos"
+
+$YDL_BIN --write-info-json  --restrict-filenames --write-description --write-annotations --write-thumbnail --id  --download-archive downloaded.txt --no-post-overwrites $@
