@@ -1,25 +1,9 @@
 import * as globals from './globals.js';
 import * as utils from './utils.js';
 import { logger } from './log.js';
-import axios from 'axios';
-
 
 export function adv_log_error(e: any) {
-    try {
-        if(axios.isAxiosError(e)) {
-            logger.error("EXCEPTION HANDLED: Network Problem: ", /*e.config.url,*/ e.response?.status, e.message, e.stack)
-        //} else if(e && typeof e === 'object' && utils.hasOwnProperty(e, 'message')) {
-            //logger.error("EXCEPTION HANDLED: ", e.message)
-            //if(utils.hasOwnProperty(e, "stack")) {
-            //    logger.error("STACKTRACEK ", e.stack)
-            //}
-        //    logger.error(e)
-        } else {
-            logger.error("EXCEPTION HANDLED: ", e);
-        }
-    } catch(error) {
-        logger.error("EXCEPTION HANDLED: When processing one background exception, another one appeared:", error)
-    }
+    logger.error("EXCEPTION HANDLED: ", e);
 }
 
             /*
